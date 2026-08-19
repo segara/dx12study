@@ -1,0 +1,70 @@
+#include <Windows.h>
+
+LRESULT CALLBACK WindowProc(
+    HWND hwnd,
+    UINT message,
+    WPARAM wParam,
+    LPARAM lParam)
+{
+    switch (message)
+    {
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0;
+    }
+
+    return DefWindowProc(hwnd, message, wParam, lParam);
+}
+
+int WINAPI wWinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    PWSTR pCmdLine,
+    int nCmdShow)
+{
+    const wchar_t CLASS_NAME[] = L"ClientWindowClass";
+
+    WNDCLASSW wc{};
+
+    wc.lpfnWndProc   = WindowProc;
+    wc.hInstance     = hInstance;
+    wc.lpszClassName = CLASS_NAME;
+    wc.hCursor       = LoadCursor(nullptr, IDC_ARROW);
+
+    RegisterClassW(&wc);
+
+    HWND hwnd = CreateWindowExW(
+        0,
+        CLASS_NAME,
+        L"Client",
+        WS_OVERLAPPEDWINDOW,
+
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        1280,
+        720,
+
+        nullptr,
+        nullptr,
+        hInstance,
+        nullptr
+    );
+
+    if (hwnd == nullptr)
+    {
+        return 0;
+    }
+
+    ShowWindow(hwnd, nCmdShow);
+    UpdateWindow(hwnd);
+
+    MSG msg{};
+
+    while (GetMessageW(&msg, nullptr, 0, 0) > 0)
+    {
+        TranslateMessage(&msg);
+        DispatchMessageW(&msg);
+    }
+
+    return static_cast<int>(msg.wParam);
+}

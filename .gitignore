@@ -1,0 +1,73 @@
+# ============================================
+# Visual Studio
+# ============================================
+
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM/
+ARM64/
+
+# Visual C++ intermediate files
+*.obj
+*.iobj
+*.ipdb
+*.pch
+*.pdb
+*.ilk
+*.idb
+*.tlog
+*.lastbuildstate
+
+# Compiled binaries
+*.exe
+*.dll
+*.lib
+*.exp
+
+# ============================================
+# CMake
+# ============================================
+Solution/
+build/
+out/
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+
+# CMake generated Visual Studio files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# ============================================
+# Visual Studio CMake
+# ============================================
+
+CMakeSettings.json
+CMakeUserPresets.json
+
+# ============================================
+# Misc
+# ============================================
+
+*.log
+*.tmp
+*.bak
+*.cache
+
+# Windows
+Thumbs.db
+Desktop.ini
