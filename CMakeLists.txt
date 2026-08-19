@@ -11,6 +11,11 @@ add_executable(Client WIN32
     Client/main.cpp
 )
 
+# Precompiled Header
+target_precompile_headers(Client PRIVATE
+    Client/pch.h
+)
+
 target_compile_definitions(Client PRIVATE
     UNICODE
     _UNICODE

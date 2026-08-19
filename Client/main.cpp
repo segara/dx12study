@@ -1,3 +1,5 @@
+﻿#include "pch.h"
+
 #include <Windows.h>
 
 LRESULT CALLBACK WindowProc(
@@ -60,10 +62,18 @@ int WINAPI wWinMain(
 
     MSG msg{};
 
-    while (GetMessageW(&msg, nullptr, 0, 0) > 0)
+    while (true)
     {
-        TranslateMessage(&msg);
-        DispatchMessageW(&msg);
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+        {
+            if (msg.message == WM_QUIT)
+                break;
+      
+
+            TranslateMessage(&msg);
+            DispatchMessageW(&msg);
+        }
+     
     }
 
     return static_cast<int>(msg.wParam);
