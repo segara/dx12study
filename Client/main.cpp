@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-
+#include "Game.h"
 #include <Windows.h>
 
 LRESULT CALLBACK WindowProc(
@@ -61,6 +61,8 @@ int WINAPI wWinMain(
     UpdateWindow(hwnd);
 
     MSG msg{};
+    unique_ptr<Game> game = make_unique<Game>();
+    game->Init();
 
     while (true)
     {
@@ -73,6 +75,7 @@ int WINAPI wWinMain(
             TranslateMessage(&msg);
             DispatchMessageW(&msg);
         }
+        game->Update();
      
     }
 
