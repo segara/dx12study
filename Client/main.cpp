@@ -61,7 +61,7 @@ int WINAPI wWinMain(
     UpdateWindow(hwnd);
 
     MSG msg{};
-    unique_ptr<Game> game = make_unique<Game>();
+    std::unique_ptr<Game> game = std::make_unique<Game>();
     game->Init();
 
     while (true)

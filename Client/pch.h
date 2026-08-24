@@ -3,10 +3,12 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
+#include <Utils/EnginePch.h>
+
 #include <Windows.h>
 
 #include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
-using namespace std;
+#pragma comment(lib, "Engine.lib")
