@@ -42,4 +42,13 @@ using Vec3		= XMFLOAT3;
 using Vec4		= XMFLOAT4;
 using Matrix	= XMMATRIX;
 
-void HelloEngine();
+struct WindowInfo
+{
+	HWND hwnd;
+	int32 width;
+	int32 height;
+	bool windowed; //창모드, 전체화면
+};
+class Engine; //전방선언
+extern std::unique_ptr<Engine> GEngine;
+

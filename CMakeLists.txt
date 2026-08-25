@@ -18,6 +18,16 @@ add_library(Engine STATIC
     Engine/Utils/pch.cpp
     Engine/Utils/EnginePch.h
     Engine/Utils/EnginePch.cpp
+    Engine/Engine/Engine.h
+    Engine/Engine/Engine.cpp
+    Engine/Engine/CommandQueue.h
+    Engine/Engine/CommandQueue.cpp
+    Engine/Engine/DescriptorHeap.h
+    Engine/Engine/DescriptorHeap.cpp
+    Engine/Engine/Device.h
+    Engine/Engine/Device.cpp
+    Engine/Engine/SwapChain.h
+    Engine/Engine/SwapChain.cpp
     Engine/README.md
     Engine/Resource/README.md
     Engine/Utils/README.md
@@ -25,6 +35,16 @@ add_library(Engine STATIC
 
 source_group("Engine" FILES
     Engine/README.md
+    Engine/Engine/Engine.h
+    Engine/Engine/Engine.cpp
+    Engine/Engine/CommandQueue.h
+    Engine/Engine/CommandQueue.cpp
+    Engine/Engine/Device.h
+    Engine/Engine/Device.cpp
+    Engine/Engine/SwapChain.h
+    Engine/Engine/SwapChain.cpp
+    Engine/Engine/DescriptorHeap.h
+    Engine/Engine/DescriptorHeap.cpp
 )
 source_group("Resource" FILES
     Engine/Resource/README.md
