@@ -4,7 +4,7 @@
 
 void Game::Init()
 {
-	HelloEngine();
+	//HelloEngine();
 }
 
 void Game::Update()
