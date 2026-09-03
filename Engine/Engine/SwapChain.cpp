@@ -28,3 +28,13 @@ void SwapChain::Init(const WindowInfo& info, ComPtr<IDXGIFactory> dxgi, ComPtr<I
 	}
 
 }
+
+void SwapChain::Present()
+{
+	_swapChain->Present(0, 0); //
+}
+
+void SwapChain::SwapIndex()
+{
+	_backBufferIndex = (_backBufferIndex + 1) % SWAP_CHAIN_BUFFER_COUNT; //0,1,0,1,0
+}
