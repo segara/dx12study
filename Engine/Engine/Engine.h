@@ -5,7 +5,8 @@ class Engine
 public:
 	void Init(const WindowInfo& info);
 	void Render();
-
+	void RenderBegin();
+	void RenderEnd();
 	void ResizeWindow(int32 width, int32 height);
 private:
 	WindowInfo _window;

@@ -31,3 +31,8 @@ void DescriptorHeap::Init(ComPtr<ID3D12Device> device, std::shared_ptr<SwapChain
 		device->CreateRenderTargetView(swapChain->GetRenderTarget(i).Get(), nullptr, _rtvHandle[i]);
 	}
 }
+
+D3D12_CPU_DESCRIPTOR_HANDLE DescriptorHeap::GetBackBufferView()
+{
+	return GetRTV(_swapChain->GetCurrentBackBufferIndex());
+}

@@ -2,6 +2,8 @@
 #include "Game.h"
 #include <Windows.h>
 
+WindowInfo GWindowInfo;
+
 LRESULT CALLBACK WindowProc(
     HWND hwnd,
     UINT message,
@@ -59,10 +61,15 @@ int WINAPI wWinMain(
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
+    GWindowInfo.hwnd = hwnd;
+
+    GWindowInfo.width = 800;
+    GWindowInfo.height = 600;
+    GWindowInfo.windowed = true;
 
     MSG msg{};
     std::unique_ptr<Game> game = std::make_unique<Game>();
-    game->Init();
+    game->Init(GWindowInfo);
 
     while (true)
     {

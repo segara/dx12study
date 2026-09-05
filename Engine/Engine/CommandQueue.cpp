@@ -1,5 +1,7 @@
 #include "../Utils/pch.h"
 #include "CommandQueue.h"
+#include "SwapChain.h"
+#include "DescriptorHeap.h"
 
 CommandQueue::~CommandQueue()
 {
@@ -37,4 +39,41 @@ void CommandQueue::WaitSync()
 		_fence->SetEventOnCompletion(_fenceValue, _fenceEvent);
 		::WaitForSingleObject(_fenceEvent, INFINITE);
 	}
+}
+
+void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
+{
+	_cmdAlloc->Reset();
+	_cmdList->Reset(_cmdAlloc.Get(), nullptr);
+	//backbuffer 에 그려줄준비
+	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		_swapChain->GetCurrentBackBufferResource().Get(),
+		D3D12_RESOURCE_STATE_PRESENT, //현재 보여주는애를 rendertarget으로 설정
+		D3D12_RESOURCE_STATE_RENDER_TARGET
+	);
+	_cmdList->ResourceBarrier(1, &barrier);
+	_cmdList->RSSetViewports(1, vp);
+	_cmdList->RSSetScissorRects(1, rect);
+
+	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->GetBackBufferView();
+	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr);
+	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
+
+}
+
+void CommandQueue::RenderEnd()
+{
+	D3D12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(
+		_swapChain->GetCurrentBackBufferResource().Get(),
+		D3D12_RESOURCE_STATE_RENDER_TARGET,
+		D3D12_RESOURCE_STATE_PRESENT);
+
+	_cmdList->ResourceBarrier(1, &barrier);
+	_cmdList->Close();
+
+	ID3D12CommandList* cmdListArr[] = { _cmdList.Get() };
+	_cmdQueue->ExecuteCommandLists(_countof(cmdListArr), cmdListArr); //실행
+	_swapChain->Present();
+	WaitSync();
+	_swapChain->SwapIndex();
 }

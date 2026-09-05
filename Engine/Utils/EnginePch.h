@@ -54,6 +54,7 @@ struct WindowInfo
 	int32 height;
 	bool windowed; //창모드, 전체화면
 };
-class Engine; //전방선언
+class Engine; //전방선언;
+//extern은 **"이 변수나 함수의 실제 정의는 다른 곳에 있다"**고 컴파일러에게 알려주는 키워드입니다.
 extern std::unique_ptr<Engine> GEngine;
 
