@@ -55,7 +55,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 	_cmdList->RSSetViewports(1, vp);
 	_cmdList->RSSetScissorRects(1, rect);
 
-	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _descHeap->GetBackBufferView();
+	D3D12_CPU_DESCRIPTOR_HANDLE backBufferView = _swapChain->GetBackBufferView();
 	_cmdList->ClearRenderTargetView(backBufferView, Colors::LightSteelBlue, 0, nullptr);
 	_cmdList->OMSetRenderTargets(1, &backBufferView, FALSE, nullptr);
 

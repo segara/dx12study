@@ -68,6 +68,7 @@ public:
 	void RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect);
 	void RenderEnd();
 	ComPtr<ID3D12CommandQueue> GetCmdQueue() { return _cmdQueue; }
+	ComPtr<ID3D12GraphicsCommandList> GetCmdList() { return _cmdList; }
 private:
 	//CommandQueue : DX12 에 등장
 	//외주를 요청할때 하나씩 요청하면비효율적
