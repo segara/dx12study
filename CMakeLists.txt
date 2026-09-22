@@ -24,11 +24,17 @@ add_library(Engine STATIC
     Engine/Engine/CommandQueue.cpp
     Engine/Engine/DescriptorHeap.h
     Engine/Engine/DescriptorHeap.cpp
+    Engine/Engine/RootSignature.h
+    Engine/Engine/RootSignature.cpp
     Engine/Engine/Device.h
     Engine/Engine/Device.cpp
     Engine/Engine/SwapChain.h
     Engine/Engine/SwapChain.cpp
     Engine/README.md
+    Engine/Resource/Shader.h
+    Engine/Resource/Shader.cpp
+    Engine/Resource/Mesh.h
+    Engine/Resource/Mesh.cpp
     Engine/Resource/README.md
     Engine/Utils/README.md
 )
@@ -45,8 +51,14 @@ source_group("Engine" FILES
     Engine/Engine/SwapChain.cpp
     Engine/Engine/DescriptorHeap.h
     Engine/Engine/DescriptorHeap.cpp
+    Engine/Engine/RootSignature.h
+    Engine/Engine/RootSignature.cpp
 )
 source_group("Resource" FILES
+    Engine/Resource/Shader.h
+    Engine/Resource/Shader.cpp
+    Engine/Resource/Mesh.h
+    Engine/Resource/Mesh.cpp
     Engine/Resource/README.md
 )
 source_group("Utils" FILES
