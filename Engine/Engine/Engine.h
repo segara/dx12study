@@ -5,6 +5,9 @@
 #include "DescriptorHeap.h"
 #include "RootSignature.h"
 
+#include "../Resource/Mesh.h"
+#include "../Resource/Shader.h"
+
 class Engine
 {
 public:
