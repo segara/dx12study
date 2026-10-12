@@ -9,7 +9,7 @@
 #include <array>
 #include <list>
 #include <map>
-using namespace std;
+
 #include "d3dx12.h"
 #include <d3d12.h>
 #include <wrl.h>
@@ -68,3 +68,4 @@ class Engine; //전방선언;
 //extern은 **"이 변수나 함수의 실제 정의는 다른 곳에 있다"**고 컴파일러에게 알려주는 키워드입니다.
 extern std::unique_ptr<Engine> GEngine;
 
+using namespace std;
