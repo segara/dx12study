@@ -37,6 +37,9 @@ void Mesh::Render()
 {
 	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CMD_LIST->IASetVertexBuffers(0, 1, &_vetexBufferView);
+
+	//ram -> gpu ram -> gpu resgister (에 gpu ram 주소값만 셋팅)
+	//CMD_LIST->
 	CMD_LIST->DrawInstanced(_vertexCount,1,0,0);
 
 }

@@ -30,15 +30,15 @@ void RootSignature::Init(ComPtr<ID3D12Device> device)
 	CD3DX12_ROOT_PARAMETER rootParameter[2];
 	rootParameter[0].InitAsConstantBufferView(0); //0번 -> b0 -> cbv
 	rootParameter[1].InitAsConstantBufferView(1); //1번 -> b1 -> cbv
-	
-	//**CBV(Constant Buffer View)** 는** 상수 버퍼(Constant Buffer)** 를 셰이더에 연결하기 위한 뷰(디스크립터)입니다.HLSL의 cbuffer / ConstantBuffer<T>가 읽는 데이터가 어디에 있는지 GPU에 알려 줍니다.
 
+	//InitAsConstantBufferView는 뷰를 생성하지 않습니다. 루트 시그니처에 **”이 슬롯은 Root CBV 타입이고 b0에 연결된다"는 선언(레이아웃)**만 적는 함수
+	//SetGraphicsRootConstantBufferView(N, addr)에서 실제 주소를 채움
 	//	상수 버퍼란
 	//	드로우콜 하나 동안 모든 스레드가 똑같이 읽는 작은 데이터입니다.예를 들면 World / View / Projection 행렬, 카메라 위치, 머티리얼 파라미터, 시간 값 같은 것들입니다.
 	//	셰이더에서는 읽기만 할 수 있습니다.
 	//	HLSL 레지스터** b#** 에 바인딩됩니다.
 	
-	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(D3D12_DEFAULT); //서명
+	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(2, rootParameter); //서명
 	//입력 조립기 단계를 사용하겠다.
 	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT; //입력 조립기 단계
 	ComPtr<ID3DBlob> blobSignature;
