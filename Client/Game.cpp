@@ -22,7 +22,20 @@ void Game::Update()
 	GEngine->RenderBegin();
 
 	shader->Update();	 //매프레임 pipeline state를 셋팅
-	mesh->Render();	
+
+	{
+		Transform transform;
+		transform.offset = Vec4(0.5f, 0.f, 0.f, 0.f);
+		mesh->SetTransform(transform);
+		mesh->Render();
+	}
+
+	{
+		Transform transform;
+		transform.offset = Vec4(0.f, 0.5f, 0.f, 0.f);
+		mesh->SetTransform(transform);
+		mesh->Render();
+	}
 
 	GEngine->RenderEnd();
 }

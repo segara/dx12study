@@ -56,6 +56,7 @@ void CommandQueue::RenderBegin(const D3D12_VIEWPORT* vp, const D3D12_RECT* rect)
 	//VS가 SV_VertexID로 정점을 계산하고 PS가 고정 색상을 출력하는 경우처럼 셰이더가 cbuffer, 텍스처, 샘플러를 하나도 읽지 않으면
 	// GPU가 루트 인자를 참조할 일이 없습니다.그래서 바인딩이 비어 있어도 실제로는 문제가 드러나지 않습니다.
 	_cmdList->SetGraphicsRootSignature(ROOT_SIGNATURE.Get());
+	GEngine->GetConstantBuffer()->Clear();
 
 	_cmdList->ResourceBarrier(1, &barrier);
 	_cmdList->RSSetViewports(1, vp);

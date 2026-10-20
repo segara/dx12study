@@ -15,12 +15,14 @@ void Engine::Init(const WindowInfo& info)
 	_swapChain = std::make_shared<SwapChain>();
 	//_descHeap = std::make_shared<DescriptorHeap>();
 	_rootSignature = std::make_shared<RootSignature>();
+	_constantBuffer = std::make_shared<ConstantBuffer>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
 	_swapChain->Init(_window, _device->GetDevice(),_device->GetDXGI(), _cmdQueue->GetCmdQueue());
 	//_descHeap->Init(_device->GetDevice(), _swapChain);
-	_rootSignature->Init(_device->GetDevice());
+	_rootSignature->Init(_device->GetDevice());		
+	_constantBuffer->Init(sizeof(Transform), 256); //256개까지 상수버퍼를 쪼개서 사용가능
 }
 
 void Engine::Render()

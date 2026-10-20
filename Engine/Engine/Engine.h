@@ -4,6 +4,7 @@
 #include "SwapChain.h"
 #include "DescriptorHeap.h"
 #include "RootSignature.h"
+#include "ConstantBuffer.h"
 
 #include "../Resource/Mesh.h"
 #include "../Resource/Shader.h"
@@ -21,6 +22,7 @@ public:
 	std::shared_ptr<CommandQueue> GetCommandQueue() { return _cmdQueue; }
 	std::shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
 	std::shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
+	std::shared_ptr<ConstantBuffer> GetConstantBuffer() { return _constantBuffer; }
 
 private:
 	WindowInfo _window;
@@ -32,5 +34,6 @@ private:
 	std::shared_ptr<SwapChain> _swapChain; 
 	std::shared_ptr<DescriptorHeap> _descHeap;
 	std::shared_ptr<RootSignature> _rootSignature;
+	std::shared_ptr<ConstantBuffer> _constantBuffer;
 
 };

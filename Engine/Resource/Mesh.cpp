@@ -39,6 +39,9 @@ void Mesh::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_vetexBufferView);
 
 	//ram -> gpu ram -> gpu resgister (에 gpu ram 주소값만 셋팅)
+	
+	GEngine->GetConstantBuffer()->PushData(0, &_transform, sizeof(Transform));
+	GEngine->GetConstantBuffer()->PushData(1, &_transform, sizeof(Transform));
 	//CMD_LIST->
 	CMD_LIST->DrawInstanced(_vertexCount,1,0,0);
 

@@ -30,6 +30,8 @@ add_library(Engine STATIC
     Engine/Engine/Device.cpp
     Engine/Engine/SwapChain.h
     Engine/Engine/SwapChain.cpp
+    Engine/Engine/ConstantBuffer.h
+    Engine/Engine/ConstantBuffer.cpp
     Engine/README.md
     Engine/Resource/Shader.h
     Engine/Resource/Shader.cpp
@@ -53,6 +55,8 @@ source_group("Engine" FILES
     Engine/Engine/DescriptorHeap.cpp
     Engine/Engine/RootSignature.h
     Engine/Engine/RootSignature.cpp
+    Engine/Engine/ConstantBuffer.h
+    Engine/Engine/ConstantBuffer.cpp
 )
 source_group("Resource" FILES
     Engine/Resource/Shader.h
