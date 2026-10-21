@@ -1,11 +1,11 @@
-#include "../Utils/pch.h"
+ï»¿#include "../Utils/pch.h"
 #include "Device.h"
 
 void Device::Init()
 {
 #ifdef _DEBUG
     HRESULT hr = S_OK;
-    // D3D12 SDK Layers°¡ ¾øÀ» ¼ö ÀÖÀ¸¹Ç·Î ¹İÈ¯°ªÀ» Ã¼Å©ÇÕ´Ï´Ù.
+    // D3D12 SDK Layersê°€ ì—†ì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë°˜í™˜ê°’ì„ ì²´í¬í•©ë‹ˆë‹¤.
     hr = D3D12GetDebugInterface(IID_PPV_ARGS(&_debugController));
     if (SUCCEEDED(hr) && _debugController)
     {
@@ -13,9 +13,9 @@ void Device::Init()
     }
     else
     {
-        // SDK Layers°¡ ¼³Ä¡µÇ¾î ÀÖÁö ¾ÊÀ¸¸é µğ¹ö±× ·¹ÀÌ¾î¸¦ °Ç³Ê¶İ´Ï´Ù.
-        OutputDebugStringA("°æ°í: D3D12 SDK Layers°¡ ½Ã½ºÅÛ¿¡ ¾ø½À´Ï´Ù. EnableDebugLayer()¸¦ °Ç³Ê¶İ´Ï´Ù.\n");
-        // _debugController´Â ºó ComPtr »óÅÂ·Î ³²½À´Ï´Ù(¾ÈÀü).
+        // SDK Layersê°€ ì„¤ì¹˜ë˜ì–´ ìˆì§€ ì•Šìœ¼ë©´ ë””ë²„ê·¸ ë ˆì´ì–´ë¥¼ ê±´ë„ˆëœë‹ˆë‹¤.
+        OutputDebugStringA("ê²½ê³ : D3D12 SDK Layersê°€ ì‹œìŠ¤í…œì— ì—†ìŠµë‹ˆë‹¤. EnableDebugLayer()ë¥¼ ê±´ë„ˆëœë‹ˆë‹¤.\n");
+        // _debugControllerëŠ” ë¹ˆ ComPtr ìƒíƒœë¡œ ë‚¨ìŠµë‹ˆë‹¤(ì•ˆì „).
     }
 #endif
 	::CreateDXGIFactory(IID_PPV_ARGS(&_dxgi));

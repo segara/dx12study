@@ -1,4 +1,4 @@
-#include "../Utils/pch.h"
+ï»¿#include "../Utils/pch.h"
 #include "SwapChain.h"
 
 void SwapChain::Init(const WindowInfo& info, ComPtr<ID3D12Device> device, ComPtr<IDXGIFactory> dxgi, ComPtr<ID3D12CommandQueue> cmdQueue)
@@ -44,13 +44,13 @@ void SwapChain::CreateRTV(ComPtr<ID3D12Device> device)
 
 
 	// descriptor = view
-	// d11¿¡¼­´Â render target view, depth stencil view, constant buffer view, shader resource view,,
+	// d11ì—ì„œëŠ” render target view, depth stencil view, constant buffer view, shader resource view,,
 
-	int32 _rtvHeapSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV); //render target view »çÀÌÁî °è»ê
+	int32 _rtvHeapSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV); //render target view ì‚¬ì´ì¦ˆ ê³„ì‚°
 
 
-	// descriptor heap °°Àº Á¾·ùÀÇ µ¥ÀÌÅÍ³¢¸® ¹è¿­·Î Ã³¸®
-	// rtv ¸ñ·Ï : [] [] (ÇöÀç 2°³)
+	// descriptor heap ê°™ì€ ì¢…ë¥˜ì˜ ë°ì´í„°ë¼ë¦¬ ë°°ì—´ë¡œ ì²˜ë¦¬
+	// rtv ëª©ë¡ : [] [] (í˜„ì¬ 2ê°œ)
 
 	D3D12_DESCRIPTOR_HEAP_DESC rtvDesc;
 	rtvDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
@@ -64,7 +64,7 @@ void SwapChain::CreateRTV(ComPtr<ID3D12Device> device)
 
 	for (int i = 0; i < SWAP_CHAIN_BUFFER_COUNT; i++)
 	{
-		_rtvHandle[i] = CD3DX12_CPU_DESCRIPTOR_HANDLE(rtvHeapBegin, i * _rtvHeapSize); //´ÙÀ½ ÁÖ¼Ò¸¸Å­ ÀÌµ¿
+		_rtvHandle[i] = CD3DX12_CPU_DESCRIPTOR_HANDLE(rtvHeapBegin, i * _rtvHeapSize); //ë‹¤ìŒ ì£¼ì†Œë§Œí¼ ì´ë™
 		device->CreateRenderTargetView(_renderTargets[i].Get(), nullptr, _rtvHandle[i]);
 	}
 }
