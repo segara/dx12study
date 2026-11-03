@@ -5,6 +5,7 @@
 #include "DescriptorHeap.h"
 #include "RootSignature.h"
 #include "ConstantBuffer.h"
+#include "TableDescriptorHeap.h"
 
 #include "../Resource/Mesh.h"
 #include "../Resource/Shader.h"
@@ -23,7 +24,7 @@ public:
 	std::shared_ptr<SwapChain> GetSwapChain() { return _swapChain; }
 	std::shared_ptr<RootSignature> GetRootSignature() { return _rootSignature; }
 	std::shared_ptr<ConstantBuffer> GetConstantBuffer() { return _constantBuffer; }
-
+	std::shared_ptr<TableDescriptorHeap> GetTableDescriptorHeap() { return _tableDescriptorHeap; }
 private:
 	WindowInfo _window;
 	D3D12_VIEWPORT _viewport = {};
@@ -35,5 +36,6 @@ private:
 	std::shared_ptr<DescriptorHeap> _descHeap;
 	std::shared_ptr<RootSignature> _rootSignature;
 	std::shared_ptr<ConstantBuffer> _constantBuffer;
+	std::shared_ptr<TableDescriptorHeap> _tableDescriptorHeap;
 
 };

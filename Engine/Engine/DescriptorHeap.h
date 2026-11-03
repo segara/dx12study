@@ -1,9 +1,6 @@
 ﻿#pragma once
-//[기안서]
-// 외주를 맡길 때 이런 저런 정보를 같이 넘겨줘야 하는데, 
-// 아무 형태로나 요청하면 못 알아먹는다
-// 각종 리소스를 어떤 용도로 사용하는지 꼼꼼하게 적어서 넘겨줌
-class DescriptorHeap //direct11 에서는 view의 개념
+
+class DescriptorHeap 
 {
 
 

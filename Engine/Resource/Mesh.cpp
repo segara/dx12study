@@ -39,9 +39,18 @@ void Mesh::Render()
 	CMD_LIST->IASetVertexBuffers(0, 1, &_vetexBufferView);
 
 	//ram -> gpu ram -> gpu resgister (에 gpu ram 주소값만 셋팅)
+	//GEngine->GetConstantBuffer()->PushData(0, &_transform, sizeof(Transform));
+	//GEngine->GetConstantBuffer()->PushData(1, &_transform, sizeof(Transform));
 	
-	GEngine->GetConstantBuffer()->PushData(0, &_transform, sizeof(Transform));
-	GEngine->GetConstantBuffer()->PushData(1, &_transform, sizeof(Transform));
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetConstantBuffer()->PushDataToTable(&_transform, sizeof(Transform));
+		GEngine->GetTableDescriptorHeap()->SetCBV(handle, CBV_REGISTER::b0);
+	}
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE handle = GEngine->GetConstantBuffer()->PushDataToTable(&_transform, sizeof(Transform));
+		GEngine->GetTableDescriptorHeap()->SetCBV(handle, CBV_REGISTER::b1);
+	}
+	GEngine->GetTableDescriptorHeap()->CommitTable();	
 	//CMD_LIST->
 	CMD_LIST->DrawInstanced(_vertexCount,1,0,0);
 

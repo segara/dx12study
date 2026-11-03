@@ -24,6 +24,8 @@ add_library(Engine STATIC
     Engine/Engine/CommandQueue.cpp
     Engine/Engine/DescriptorHeap.h
     Engine/Engine/DescriptorHeap.cpp
+    Engine/Engine/TableDescriptorHeap.h
+    Engine/Engine/TableDescriptorHeap.cpp
     Engine/Engine/RootSignature.h
     Engine/Engine/RootSignature.cpp
     Engine/Engine/Device.h
@@ -53,6 +55,8 @@ source_group("Engine" FILES
     Engine/Engine/SwapChain.cpp
     Engine/Engine/DescriptorHeap.h
     Engine/Engine/DescriptorHeap.cpp
+    Engine/Engine/TableDescriptorHeap.h
+    Engine/Engine/TableDescriptorHeap.cpp
     Engine/Engine/RootSignature.h
     Engine/Engine/RootSignature.cpp
     Engine/Engine/ConstantBuffer.h

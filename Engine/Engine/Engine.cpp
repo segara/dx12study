@@ -16,6 +16,7 @@ void Engine::Init(const WindowInfo& info)
 	//_descHeap = std::make_shared<DescriptorHeap>();
 	_rootSignature = std::make_shared<RootSignature>();
 	_constantBuffer = std::make_shared<ConstantBuffer>();
+	_tableDescriptorHeap = std::make_shared<TableDescriptorHeap>();
 
 	_device->Init();
 	_cmdQueue->Init(_device->GetDevice(), _swapChain, _descHeap);
@@ -23,6 +24,7 @@ void Engine::Init(const WindowInfo& info)
 	//_descHeap->Init(_device->GetDevice(), _swapChain);
 	_rootSignature->Init(_device->GetDevice());		
 	_constantBuffer->Init(sizeof(Transform), 256); //256개까지 상수버퍼를 쪼개서 사용가능
+	_tableDescriptorHeap->Init(256); //256개의 CBV를 테이블에 등록가능
 }
 
 void Engine::Render()

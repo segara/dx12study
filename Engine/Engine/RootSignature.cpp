@@ -3,17 +3,17 @@
 
 void RootSignature::Init(ComPtr<ID3D12Device> device)
 {
-	//root constant buffer view  사용
+	//!!!!!!root constant buffer view!!!!!  사용
 	// Root CBV는 상수 버퍼의 GPU 가상 주소를 루트 시그니처에 
 	// 직접 넣어 바인딩하는 방식입니다. 
-	// 루트 파라미터 타입은 D3D12_ROOT_PARAMETER_TYPE_CBV이고, 앞에서 다룬 Root Descriptor 중 하나입니다.
+	// 루트 파라미터 타입은 D3D12_ROOT_PARAMETER_TYPE_CBV이고, 앞에서 다룬 !!!!Root Descriptor!!!! 중 하나입니다.
 
-		//크기	2 DWORD(64비트 GPU 주소)
-		//디스크립터 힙	필요 없음.CreateConstantBufferView도 호출하지 않습니다
-		//넘기는 값	ID3D12Resource::GetGPUVirtualAddress() + 오프셋
-		//정렬	주소가 256바이트 단위로 정렬되어야 합니다
-		//크기 정보	없음.주소만 넘기므로 범위 검사를 하지 않습니다
-		//HLSL	cbuffer X : register(b#) 또는 ConstantBuffer<T>
+	//크기	2 DWORD(64비트 GPU 주소)
+	//디스크립터 힙	필요 없음.CreateConstantBufferView도 호출하지 않습니다
+	//넘기는 값	ID3D12Resource::GetGPUVirtualAddress() + 오프셋
+	//정렬	주소가 256바이트 단위로 정렬되어야 합니다
+	//크기 정보	없음.주소만 넘기므로 범위 검사를 하지 않습니다
+	//HLSL	cbuffer X : register(b#) 또는 ConstantBuffer<T>
 	
 	//동작 구조
 	//	[Descriptor Table 방식]
@@ -27,18 +27,28 @@ void RootSignature::Init(ComPtr<ID3D12Device> device)
 	//D3D12_ROOT_PARAMETER는 루트 시그니처를 이루는 파라미터 하나
 	//(슬롯 하나)를 정의하는 D3D12 기본 구조체입니다.
 
-	CD3DX12_ROOT_PARAMETER rootParameter[2];
-	rootParameter[0].InitAsConstantBufferView(0); //0번 -> b0 -> cbv
-	rootParameter[1].InitAsConstantBufferView(1); //1번 -> b1 -> cbv
+	//CD3DX12_ROOT_PARAMETER rootParameter[2];
+	//ver1. root constant buffer view 사용시
+	//rootParameter[0].InitAsConstantBufferView(0); //0번 -> b0 -> cbv
+	//rootParameter[1].InitAsConstantBufferView(1); //1번 -> b1 -> cbv
 
 	//InitAsConstantBufferView는 뷰를 생성하지 않습니다. 루트 시그니처에 **”이 슬롯은 Root CBV 타입이고 b0에 연결된다"는 선언(레이아웃)**만 적는 함수
 	//SetGraphicsRootConstantBufferView(N, addr)에서 실제 주소를 채움
 	//	상수 버퍼란
 	//	드로우콜 하나 동안 모든 스레드가 똑같이 읽는 작은 데이터입니다.예를 들면 World / View / Projection 행렬, 카메라 위치, 머티리얼 파라미터, 시간 값 같은 것들입니다.
 	//	셰이더에서는 읽기만 할 수 있습니다.
-	//	HLSL 레지스터** b#** 에 바인딩됩니다.
+	//	HLSL 레지스터** b#** 에 바인딩됩니다
 	
-	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(2, rootParameter); //서명
+	//!!!!!!!!!!!!!!!!!!!!!!root descriptor table 사용!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+	CD3DX12_DESCRIPTOR_RANGE ranges[] = {
+		CD3DX12_DESCRIPTOR_RANGE(D3D12_DESCRIPTOR_RANGE_TYPE_CBV, CBV_REGISTER_COUNT, 0), //b0~b4
+	};
+	CD3DX12_ROOT_PARAMETER rootParameter[1];
+	rootParameter[0].InitAsDescriptorTable(_countof(ranges), ranges); 
+	
+	D3D12_ROOT_SIGNATURE_DESC sigDesc = CD3DX12_ROOT_SIGNATURE_DESC(_countof(rootParameter), rootParameter); //서명
 	//입력 조립기 단계를 사용하겠다.
 	sigDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT; //입력 조립기 단계
 	ComPtr<ID3DBlob> blobSignature;
