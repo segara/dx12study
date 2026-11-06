@@ -3,7 +3,7 @@
 //[TableDescriptorHeap 용도]
 // Root Descriptor Table 방식으로 CBV 를 셰이더에 넘기기 위한 "셰이더가 볼 수 있는(SHADER_VISIBLE)" 디스크립터 힙.
 //
-// - ConstantBuffer 가 가진 _cbvHeap 은 CPU 전용(FLAG_NONE) 힙이라 셰이더가 직접 읽을 수 없다.
+// - ConstantBuffer 가 가진 _cbvDescriptorHeap 은 CPU 전용(FLAG_NONE) 힙이라 셰이더가 직접 읽을 수 없다.
 //   -> draw call 마다 필요한 CBV 디스크립터를 이 힙으로 복사(CopyDescriptors)한 뒤 테이블로 바인딩한다.
 // - CBV_SRV_UAV 타입 힙은 한 번에 하나만 바인딩할 수 있고 SetDescriptorHeaps 교체 비용이 크다.
 //   -> 큰 힙 하나를 만들어 draw call 마다 "그룹" 단위로 잘라 쓴다.
@@ -61,7 +61,7 @@
 // (1) 루트 파라미터 -> 힙의 칸 : 셰이더가 b1 을 읽으면 GPU 는 gpuHandle + 1 * 디스크립터 크기 이동
 //           -> GPU 가 직접 읽으므로 이 힙은 SHADER_VISIBLE 이어야 하고, SetDescriptorHeaps 로 등록돼 있어야 한다
 // (2) 힙의 칸 -> CBV 디스크립터 : 칸에 적힌 명세서 { BufferLocation = elem i 의 GPU 주소, SizeInBytes = 256 }
-//           원본은 ConstantBuffer::_cbvHeap(CPU 전용)에 있고, SetCBV 가 이 힙으로 복사해 온다
+//           원본은 ConstantBuffer::_cbvDescriptorHeap(CPU 전용)에 있고, SetCBV 가 이 힙으로 복사해 온다
 // (3) CBV 디스크립터 -> 버퍼 : BufferLocation 으로 가서 cbuffer 안의 오프셋 위치를 읽는다
 //           (offset0 은 TEST_B0 의 첫 멤버라 오프셋 0). SizeInBytes 가 있어 범위 검사가 가능
 //

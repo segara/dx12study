@@ -120,13 +120,13 @@ void ConstantBuffer::CreateView()
 	heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 	//CopyDescriptors 의 원본은 CPU 전용 힙이어야 한다 (SHADER_VISIBLE 힙은 CPU 에서 읽기가 매우 느림)
 	heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-	DEVICE->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&_cbvHeap));
+	DEVICE->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(&_cbvDescriptorHeap));
 
 	//**디스크립터 힙(Descriptor Heap)**은 디스크립터들을 담아 두는 연속된 배열 메모리입니다. 
 	// 셰이더가 리소스(텍스처, 버퍼 등)에 접근하려면 그 리소스를 설명하는 디스크립터가 필요한데,
 	// DX12에서는 이 디스크립터들을 앱이 힙에 직접 만들고 관리합니다.
 
-	_cbvHeapCPUHandleStart = _cbvHeap->GetCPUDescriptorHandleForHeapStart();
+	_cbvHeapCPUHandleStart = _cbvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
 	_handleincrementSize = DEVICE->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	for(uint32 i = 0; i < _elementCount; ++i)
