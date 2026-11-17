@@ -81,6 +81,32 @@ target_precompile_headers(Engine PRIVATE
     Engine/Utils/pch.h
 )
 
+# Library (root/Library)
+set(LIBRARY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Library")
+set(LIBRARY_INCLUDE_DIR "${LIBRARY_DIR}/include")
+set(LIBRARY_LIB_DIR "${LIBRARY_DIR}/Lib")
+
+# Lib 폴더의 모든 .lib 파일 (.pdb 등은 링크 대상이 아니므로 제외)
+file(GLOB_RECURSE LIBRARY_LIB_FILES CONFIGURE_DEPENDS
+    "${LIBRARY_LIB_DIR}/*.lib"
+)
+
+# include 폴더 및 하위 폴더의 모든 헤더를 인클루드 경로로 추가
+file(GLOB_RECURSE LIBRARY_HEADER_FILES LIST_DIRECTORIES true CONFIGURE_DEPENDS
+    "${LIBRARY_INCLUDE_DIR}/*"
+)
+set(LIBRARY_INCLUDE_DIRS "${LIBRARY_INCLUDE_DIR}")
+foreach(path IN LISTS LIBRARY_HEADER_FILES)
+    if(IS_DIRECTORY "${path}")
+        list(APPEND LIBRARY_INCLUDE_DIRS "${path}")
+    endif()
+endforeach()
+
+# PUBLIC: Engine에 링크하는 Client도 동일하게 적용됨
+target_include_directories(Engine PUBLIC ${LIBRARY_INCLUDE_DIRS})
+target_link_directories(Engine PUBLIC "${LIBRARY_LIB_DIR}")
+target_link_libraries(Engine PUBLIC ${LIBRARY_LIB_FILES})
+
 # Client
 add_executable(Client WIN32
     Client/pch.h
@@ -91,6 +117,11 @@ add_executable(Client WIN32
 
 target_include_directories(Client PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Engine"
+    ${LIBRARY_INCLUDE_DIRS}
+)
+
+target_link_libraries(Client PRIVATE
+    ${LIBRARY_LIB_FILES}
 )
 
 target_link_directories(Client PRIVATE

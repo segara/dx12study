@@ -22,11 +22,16 @@ using namespace DirectX;
 using namespace DirectX::PackedVector;
 using namespace Microsoft::WRL;
 
+#include <DirectXTex.h>
+#include <DirectXTex.inl>
+
 // 각종 lib
 #pragma comment(lib, "d3d12")
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "dxguid")
 #pragma comment(lib, "d3dcompiler")
+
+#pragma comment(lib, "DirectXTex.lib")
 
 // 각종 typedef
 using int8		= __int8;

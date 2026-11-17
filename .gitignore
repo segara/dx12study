@@ -28,9 +28,9 @@ ARM64/
 *.lastbuildstate
 
 # Compiled binaries
-*.exe
-*.dll
-*.lib
+#*.exe
+#*.dll
+#*.lib
 *.exp
 
 # ============================================
